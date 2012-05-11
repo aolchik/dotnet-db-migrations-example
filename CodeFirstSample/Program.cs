@@ -10,9 +10,19 @@ namespace MigrationsCodeDemo
     {
         static void Main(string[] args)
         {
-            Database.SetInitializer<ProductContext>(new DropCreateDatabaseIfModelChanges<ProductContext>());
+            // Database.SetInitializer<ProductContext>(new DropCreateDatabaseIfModelChanges<ProductContext>());
             // Recria o banco cada vez que o esquema é modificado.
             // Não usa migrações
+            
+            // A abordagem recomendada é abilitar as migrações executando 
+            //  Enable-Migration no Package Manager Console
+            // A partir daí
+            //  Add-Migration <NomeMigração> gera o scaffold da próxima 
+            //      migração a partir das modificações no modelo
+            //  Update-Database aplica as mudanças pendentes ao banco 
+            //      (a flag -Verbose mostra o que está sendo feito)
+            //      (-TargetMigration:"<NomeMigração>" possibilita fazer o banco
+            //          voltar para estado antigo)
 
             using (var db = new ProductContext())
             {
@@ -38,7 +48,18 @@ namespace MigrationsCodeDemo
                 Console.WriteLine("All foods in database:");
                 foreach (var item in allFoods)
                 {
-                    Console.WriteLine(" - {0}", item.Name);
+                    Console.WriteLine(" - Nome: {0} / Fornecedor: {1}", item.Name, item.SupplierCode);
+                }
+
+                Console.WriteLine();
+
+                var allSuppliers = from s in db.Suppliers
+                                   orderby s.Name
+                                   select s;
+                Console.WriteLine("All suppliers in database:");
+                foreach (var supplier in allSuppliers)
+                {
+                    Console.WriteLine(" - [{0}] {1}", supplier.SupplierCode, supplier.Name);
                 }
                 Console.WriteLine("Press any key to exit.");
                 Console.ReadKey();

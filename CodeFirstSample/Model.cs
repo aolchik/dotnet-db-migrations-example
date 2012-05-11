@@ -30,6 +30,9 @@ namespace MigrationsCodeDemo
         public string Name { get; set; }
         public string CategoryId { get; set; }
         public virtual Category Category { get; set; }
+
+        public string SupplierCode { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 
     public class Supplier
