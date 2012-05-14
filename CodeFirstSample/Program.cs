@@ -10,7 +10,7 @@ namespace MigrationsCodeDemo
     {
         static void Main(string[] args)
         {
-            // Database.SetInitializer<ProductContext>(new DropCreateDatabaseIfModelChanges<ProductContext>());
+            //Database.SetInitializer<ProductContext>(new DropCreateDatabaseIfModelChanges<ProductContext>());
             // Recria o banco cada vez que o esquema é modificado.
             // Não usa migrações
             
